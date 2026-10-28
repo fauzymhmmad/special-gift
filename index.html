@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full overflow-hidden">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Selamat Ulang Tahun Putri Kireina Nastiti! 💖</title>
+  <meta name="description" content="Website kejutan ulang tahun spesial untuk Putri Kireina Nastiti - 5 November">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+            handwriting: ['"Caveat"', 'cursive'],
+          },
+          colors: {
+            brandLight: '#E0D4E3',
+            brandSoft: '#C2A8C7',
+            brandPrimary: '#A47DAB',
+            brandDeep: '#7A5C80',
+            brandDark: '#533D57',
+          },
+          animation: {
+            'float': 'floating 3s ease-in-out infinite',
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'spin-slow': 'spin 8s linear infinite',
+          },
+          keyframes: {
+            floating: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Prevent whole page scrolling */
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      background-color: #E0D4E3;
+    }
+
+    /* 3D Card Flip for Polaroids */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+    
+    /* Wax Seal */
+    .wax-seal {
+      background: radial-gradient(circle, #7A5C80 0%, #533D57 100%);
+      box-shadow: 0 4px 15px rgba(83, 61, 87, 0.4), inset 0 2px 4px rgba(224, 212, 227, 0.4);
+    }
+
+    #scratchCanvas {
+      touch-action: none;
+    }
+
+    /* Custom Scrollbar for scrollable inner containers on small mobile screens */
+    .custom-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #C2A8C7;
+      border-radius: 4px;
+    }
+
+    /* Sound wave animation */
+    .sound-bar {
+      display: inline-block;
+      width: 3px;
+      height: 12px;
+      background-color: #7A5C80;
+      border-radius: 2px;
+      animation: soundWave 1.2s ease-in-out infinite alternate;
+    }
+    .sound-bar:nth-child(2) { animation-delay: 0.2s; height: 16px; }
+    .sound-bar:nth-child(3) { animation-delay: 0.4s; height: 10px; }
+    @keyframes soundWave {
+      0% { transform: scaleY(0.3); }
+      100% { transform: scaleY(1.2); }
+    }
+  </style>
+</head>
+<body class="h-full w-full text-[#533D57] flex flex-col justify-between relative selection:bg-[#C2A8C7]/50 font-sans">
+
+  <!-- Ambient Floating Background Sparkles -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="absolute text-brandSoft/40 top-12 left-[10%] text-3xl animate-float">🌸</div>
+    <div class="absolute text-brandSoft/30 top-36 right-[12%] text-2xl animate-float" style="animation-delay: 1.2s;">✨</div>
+    <div class="absolute text-brandSoft/35 bottom-24 left-[15%] text-4xl animate-float" style="animation-delay: 0.6s;">💜</div>
+    <div class="absolute text-brandSoft/40 bottom-36 right-[20%] text-3xl animate-float" style="animation-delay: 2s;">💖</div>
+  </div>
+
+  <!-- Top Bar: Step Tracker & Music Controller -->
+  <header class="relative z-50 flex items-center justify-between px-4 sm:px-8 py-3.5 bg-[#E0D4E3]/90 backdrop-blur-md border-b border-[#C2A8C7]/50">
+    <!-- Step Badge Indicator -->
+    <div class="flex items-center gap-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-[#7A5C80] animate-pulse"></span>
+      <span id="stepIndicatorLabel" class="text-xs font-bold tracking-wider text-[#533D57] uppercase">
+        1/6 : Undangan Spesial
+      </span>
+    </div>
+
+    <!-- Music Player Controller -->
+    <div>
+      <button id="musicToggleBtn" onclick="toggleMusic()" class="flex items-center gap-2 bg-white/80 hover:bg-white px-3 py-1.5 rounded-full shadow-md border border-[#C2A8C7] transition-all">
+        <div id="soundWaveIcon" class="hidden items-center gap-0.5 h-4">
+          <span class="sound-bar"></span>
+          <span class="sound-bar"></span>
+          <span class="sound-bar"></span>
+        </div>
+        <div id="vinylIcon" class="w-5 h-5 rounded-full bg-[#7A5C80] text-white flex items-center justify-center text-[10px]">
+          <i data-lucide="music" class="w-3 h-3"></i>
+        </div>
+        <span id="musicStatusText" class="text-xs font-semibold text-[#533D57]">Musik: Nyalakan 🎵</span>
+      </button>
+
+      <!-- Native Audio Element: Ed-Sheeran Happy Birthday My Love (song.mp3) -->
+      <audio id="bgAudio" loop preload="auto">
+        <source src="song.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </header>
+
+  <!-- ============================================== -->
+  <!-- MAIN SLIDES CONTAINER (NON-SCROLLABLE APP)     -->
+  <!-- ============================================== -->
+  <main class="relative z-10 flex-1 w-full max-w-4xl mx-auto flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+
+    <!-- SLIDE 1: UNDANGAN ELEGAN DENGAN WAX SEAL -->
+    <section id="slide-1" class="slide-panel w-full max-w-md animate-float">
+      <div class="bg-gradient-to-b from-white/95 to-[#E0D4E3]/70 backdrop-blur-md p-6 sm:p-10 rounded-3xl shadow-2xl border-2 border-[#C2A8C7] text-center">
+        
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E0D4E3] text-[#533D57] text-[11px] font-bold tracking-wider uppercase mb-5">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#7A5C80]"></i>
+          Edisi Spesial 5 November
+        </div>
+
+        <!-- Foto Avatar PNG Tanpa Background -->
+        <div class="relative w-28 h-28 sm:w-32 sm:h-32 mx-auto mb-4">
+          <!-- Foto PNG Transparan -->
+          <div class="w-full h-full flex items-center justify-center cursor-pointer transform hover:scale-105 active:scale-95 transition-transform" onclick="goToSlide(2)" title="Klik untuk membuka kejutan">
+            <img id="avatarImg" src="putri.png" onerror="this.onerror=null; this.src='https://api.iconify.design/noto:princess.svg';" alt="Putri Kireina Nastiti" class="w-full h-full object-contain filter drop-shadow-md">
+          </div>
+        </div>
+
+        <p class="text-[11px] tracking-widest text-[#7A5C80] font-bold uppercase mb-1">PENGIRIMAN RAHASIA UNTUK</p>
+        <h1 class="font-serif text-2xl sm:text-3xl font-extrabold text-[#533D57] mb-2 leading-tight">
+          Putri Kireina Nastiti
+        </h1>
+        <p class="text-xs sm:text-sm text-[#7A5C80] leading-relaxed mb-6 font-medium">
+          Sebuah website kejutan interaktif penuh cinta dari suamimu. Buka segelnya untuk mulai menjelajah hadiahmu!
+        </p>
+
+        <button onclick="goToSlide(2)" class="w-full group inline-flex items-center justify-center gap-2 bg-[#7A5C80] hover:bg-[#533D57] text-white font-semibold py-3.5 px-6 rounded-2xl shadow-lg shadow-[#7A5C80]/30 transition-all transform active:scale-95">
+          <span class="text-sm sm:text-base">Buka Kejutan Ulang Tahun 🎀</span>
+          <i data-lucide="chevron-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+        </button>
+
+        <p class="text-[10px] text-[#7A5C80]/80 mt-3 font-medium">
+          *Peringatan: Khusus istri tercinta, senyum manis diwajibkan! 🥰
+        </p>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: KUIS KEJUJURAN & GAMIFIKASI -->
+    <section id="slide-2" class="slide-panel hidden w-full max-w-lg">
+      <div class="bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-2xl border-2 border-[#C2A8C7] max-h-[82vh] overflow-y-auto custom-scroll">
+        
+        <div class="text-center mb-6">
+          <span class="bg-[#C2A8C7]/40 text-[#533D57] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Tahap 1: Verifikasi Istri</span>
+          <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#533D57] mt-2">
+            Kuis Kejujuran Rumah Tangga 🕵️‍♀️
+          </h2>
+          <p class="text-[#7A5C80] text-xs mt-1">
+            Buktikan bahwa kamu adalah Istriku sebelum membuka brankas hadiah!
+          </p>
+        </div>
+
+        <!-- Pertanyaan 1 -->
+        <div id="q1-block">
+          <div class="flex items-center justify-between text-xs font-bold text-[#7A5C80] mb-2">
+            <span>Pertanyaan 1 dari 2</span>
+            <span>Wajib Jujur</span>
+          </div>
+          <h3 class="text-sm sm:text-base font-bold text-[#533D57] mb-4 leading-snug">
+            Siapakah pemimpin tertinggi dan pemegang kedaulatan mutlak di rumah kita?
+          </h3>
+
+          <div class="space-y-3 relative" id="q1-options">
+            <!-- Jawaban Benar -->
+            <button onclick="handleQ1Answer(true)" class="w-full text-left p-3.5 sm:p-4 rounded-2xl border-2 border-[#C2A8C7] hover:border-[#7A5C80] hover:bg-[#E0D4E3]/40 transition-all font-semibold text-[#533D57] flex items-center justify-between group">
+              <span>👑 Putri Kireina Nastiti (Istri Sah & Mutlak)</span>
+              <span class="text-xs text-[#7A5C80] opacity-0 group-hover:opacity-100">Pilih</span>
+            </button>
+
+            <!-- Tombol Kabur / Dodging -->
+            <div id="dodgingWrapper" class="relative">
+              <button id="dodgingBtn" onmouseenter="dodgeButton(event)" onclick="dodgeButton(event)" class="w-full text-left p-3.5 sm:p-4 rounded-2xl border-2 border-stone-300 bg-stone-100 text-stone-600 transition-all duration-200 flex items-center justify-between cursor-pointer font-medium">
+                <span id="dodgingText">🧔 Suamiku Tersayang</span>
+                <span class="text-xs text-stone-400">(Coba klik)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pertanyaan 2 (Awalnya Sembunyi) -->
+        <div id="q2-block" class="hidden">
+          <div class="flex items-center justify-between text-xs font-bold text-emerald-700 mb-2">
+            <span>Pertanyaan 2 dari 2</span>
+            <span>Pertanyaan Final!</span>
+          </div>
+          <h3 class="text-sm sm:text-base font-bold text-[#533D57] mb-4 leading-snug">
+            Apa prestasi dan pencapaian terbaik seumur hidup suamimu?
+          </h3>
+
+          <div class="space-y-3">
+            <button onclick="handleQ2Answer(false)" class="w-full text-left p-3 rounded-2xl border border-stone-200 hover:bg-stone-50 text-xs sm:text-sm font-medium text-stone-700">
+              A) Hafal jalan pintas tanpa buka Google Maps
+            </button>
+            <button onclick="handleQ2Answer(false)" class="w-full text-left p-3 rounded-2xl border border-stone-200 hover:bg-stone-50 text-xs sm:text-sm font-medium text-stone-700">
+              B) Nggak pernah lupa naruh dompet
+            </button>
+            <button onclick="handleQ2Answer(true)" class="w-full text-left p-3.5 rounded-2xl border-2 border-[#7A5C80] bg-[#E0D4E3]/60 hover:bg-[#E0D4E3] text-xs sm:text-sm font-bold text-[#533D57] flex items-center justify-between">
+              <span>C) Berhasil menikahi bidadari bernama Putri Kireina Nastiti 💕</span>
+              <i data-lucide="heart" class="w-4 h-4 text-[#7A5C80] fill-[#7A5C80]"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Notifikasi Berhasil -->
+        <div id="quizSuccess" class="hidden text-center py-4">
+          <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl animate-bounce">
+            🎉
+          </div>
+          <h4 class="font-bold text-lg text-[#533D57]">Verifikasi 100% Sah!</h4>
+          <p class="text-xs text-[#7A5C80] mb-4">Kamu memang istri terbaik di dunia. Tiket hadiah utama telah terbuka!</p>
+          <button onclick="goToSlide(3)" class="inline-flex items-center gap-2 bg-[#7A5C80] hover:bg-[#533D57] text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition-all text-sm">
+            <span>Buka Tiket Hadiah Staycation 🎁</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SLIDE 3: TIKET GOSOK + MAPS HOTEL HORISON ULTIMA BEKASI -->
+    <section id="slide-3" class="slide-panel hidden w-full max-w-xl">
+      <div class="bg-white/95 backdrop-blur-md rounded-3xl p-5 sm:p-7 shadow-2xl border-2 border-[#C2A8C7] max-h-[84vh] overflow-y-auto custom-scroll text-center">
+        
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E0D4E3] text-[#533D57] text-xs font-bold mb-2">
+          <i data-lucide="gift" class="w-3.5 h-3.5 text-[#7A5C80]"></i>
+          Tahap 2: Hadiah Utama Staycation
+        </div>
+
+        <h2 class="font-serif text-xl sm:text-2xl font-bold text-[#533D57] mb-1">
+          Tiket Kupon Spesial Ulang Tahun 🎟️
+        </h2>
+        <p class="text-xs text-[#7A5C80] mb-4">
+          Gosok lapisan kartu di bawah menggunakan jari atau mouse untuk membongkar detail liburanmu!
+        </p>
+
+        <!-- Container Scratch Card -->
+        <div class="relative w-full aspect-[16/9] rounded-2xl shadow-xl overflow-hidden border-2 border-[#7A5C80] bg-gradient-to-br from-[#533D57] to-[#7A5C80] p-4 text-white flex flex-col justify-between">
+          
+          <!-- Konten di bawah gosokan -->
+          <div id="couponUnderneath" class="absolute inset-0 p-4 sm:p-5 flex flex-col justify-between items-center text-center bg-gradient-to-br from-[#FFFDFB] via-[#E0D4E3]/60 to-[#C2A8C7]/30 text-[#533D57]">
+            <div class="w-full flex justify-between items-center border-b border-[#C2A8C7] pb-1 text-[10px] font-bold text-[#7A5C80]">
+              <span>KUPON RESMI ULANG TAHUN KE-2X</span>
+              <span>★ 5 NOVEMBER ★</span>
+            </div>
+
+            <div class="my-auto">
+              <div class="text-3xl mb-0.5">🏨✨</div>
+              <div class="text-[10px] font-bold tracking-wider text-[#7A5C80] uppercase">Paket Staycation Romantis</div>
+              <h3 class="font-serif text-xl sm:text-2xl font-extrabold text-[#533D57] leading-tight my-0.5">
+                Horison Ultima Bekasi
+              </h3>
+              <p class="text-[11px] text-[#7A5C80] max-w-sm mx-auto font-medium">
+                Berlaku untuk liburan santai bareng suami. Bebas cuci piring, bebas masak, full istirahat, sarapan buffet lezat & renang sepuasnya!
+              </p>
+            </div>
+
+            <div class="w-full bg-[#7A5C80]/15 rounded-lg py-1.5 px-3 border border-[#C2A8C7] flex items-center justify-between text-[11px] text-[#533D57]">
+              <span class="font-bold">Pemegang Tiket: Putri Kireina Nastiti</span>
+              <span class="bg-[#7A5C80] text-white text-[9px] px-2 py-0.5 rounded-full font-bold">VIP ALL ACCESS</span>
+            </div>
+          </div>
+
+          <!-- Canvas Gosok -->
+          <canvas id="scratchCanvas" class="absolute inset-0 w-full h-full cursor-pointer z-10"></canvas>
+        </div>
+
+        <p id="scratchHint" class="text-[11px] text-[#7A5C80] mt-2 font-semibold">
+          ✨ Gosok kartu di atas sampai minimal 40% untuk membuka!
+        </p>
+
+        <!-- KORDINAT DAN GOOGLE MAPS EMBED -->
+        <div class="mt-5 text-left border-t border-[#C2A8C7]/60 pt-4">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-[#533D57]">
+              <i data-lucide="map-pin" class="w-4 h-4 text-[#7A5C80]"></i>
+              <span>Lokasi: Horison Ultima Bekasi</span>
+            </div>
+            <a href="https://maps.google.com/?q=Horison+Ultima+Bekasi" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-[#7A5C80] hover:underline flex items-center gap-1">
+              <span>Buka di Google Maps</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+          </div>
+
+          <!-- Google Maps Iframe Embed -->
+          <div class="w-full h-44 sm:h-52 rounded-2xl overflow-hidden border border-[#C2A8C7] shadow-inner">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.1166656168516!2d106.99005009999999!3d-6.2483540999999985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698c3855555555%3A0x1b77758e67e870be!2sHorison%20Ultima%20Bekasi!5e0!3m2!1sen!2sid!4v1793158503147!5m2!1sen!2sid" 
+              width="100%" 
+              height="100%" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="strict-origin-when-cross-origin">
+            </iframe>
+          </div>
+        </div>
+
+        <div class="mt-6 flex justify-between items-center">
+          <button onclick="goToSlide(2)" class="text-xs font-semibold text-[#7A5C80] hover:underline flex items-center gap-1">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+            Kembali ke Kuis
+          </button>
+          <button onclick="goToSlide(4)" class="inline-flex items-center gap-2 bg-[#7A5C80] hover:bg-[#533D57] text-white font-semibold py-2.5 px-5 rounded-xl shadow-md text-xs sm:text-sm transition-all">
+            <span>Buka Galeri Foto Kenangan 📸</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SLIDE 4: GALERI FOTO POLAROID + FITUR UPLOAD FOTO -->
+    <section id="slide-4" class="slide-panel hidden w-full max-w-2xl">
+      <div class="bg-white/95 backdrop-blur-md rounded-3xl p-5 sm:p-7 shadow-2xl border-2 border-[#C2A8C7] max-h-[84vh] overflow-y-auto custom-scroll text-center">
+        
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E0D4E3] text-[#533D57] text-xs font-bold mb-2">
+          <i data-lucide="camera" class="w-3.5 h-3.5 text-[#7A5C80]"></i>
+          Tahap 3: Momen Indah Bersamamu
+        </div>
+
+        <h2 class="font-serif text-xl sm:text-2xl font-bold text-[#533D57] mb-1">
+          Album Polaroid Cinta Kita 📸
+        </h2>
+        <p class="text-xs text-[#7A5C80] mb-5">
+          Klik atau tap kartu polaroid untuk membaca pesan manis di baliknya 💕
+        </p>
+
+        <!-- 3 Polaroid Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+          
+          <!-- Polaroid 1 -->
+          <div class="perspective-1000 h-72 cursor-pointer group" onclick="flipCard(this)">
+            <div class="relative w-full h-full duration-500 transform-style-3d transition-transform shadow-md rounded-xl">
+              <!-- Front -->
+              <div class="absolute inset-0 backface-hidden bg-white p-3 pb-6 rounded-xl border border-[#C2A8C7] flex flex-col justify-between rotate-[-1.5deg]">
+                <div class="w-full h-44 bg-[#E0D4E3]/70 rounded-lg overflow-hidden flex items-center justify-center">
+                  <img id="imgSlot1" src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80" alt="Momen Putri 1" class="w-full h-full object-cover">
+                </div>
+                <div class="font-handwriting text-lg text-[#533D57] text-center pt-2">
+                  "Senyum paling manis ✨"
+                </div>
+              </div>
+              <!-- Back -->
+              <div class="absolute inset-0 backface-hidden rotate-y-180 bg-[#FFFDFB] p-4 rounded-xl border-2 border-[#A47DAB] flex flex-col justify-center text-center">
+                <div class="text-xl mb-1">💌</div>
+                <h4 class="font-bold text-xs text-[#7A5C80] mb-1">Untuk Istriku</h4>
+                <p class="font-handwriting text-base text-[#533D57] leading-relaxed">
+                  "Setiap kali melihat kamu tersenyum, semua rasa lelah seharian langsung hilang. Terima kasih sudah selalu menjadi penyejuk hatiku."
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Polaroid 2 -->
+          <div class="perspective-1000 h-72 cursor-pointer group" onclick="flipCard(this)">
+            <div class="relative w-full h-full duration-500 transform-style-3d transition-transform shadow-md rounded-xl">
+              <!-- Front -->
+              <div class="absolute inset-0 backface-hidden bg-white p-3 pb-6 rounded-xl border border-[#C2A8C7] flex flex-col justify-between rotate-[1.5deg]">
+                <div class="w-full h-44 bg-[#E0D4E3]/70 rounded-lg overflow-hidden flex items-center justify-center">
+                  <img id="imgSlot2" src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=600&q=80" alt="Momen Bersama 2" class="w-full h-full object-cover">
+                </div>
+                <div class="font-handwriting text-lg text-[#533D57] text-center pt-2">
+                  "Partner hidup selamanya ☕"
+                </div>
+              </div>
+              <!-- Back -->
+              <div class="absolute inset-0 backface-hidden rotate-y-180 bg-[#FFFDFB] p-4 rounded-xl border-2 border-[#A47DAB] flex flex-col justify-center text-center">
+                <div class="text-xl mb-1">🥐</div>
+                <h4 class="font-bold text-xs text-[#7A5C80] mb-1">Momen Favorit</h4>
+                <p class="font-handwriting text-base text-[#533D57] leading-relaxed">
+                  "Dari obrolan random tengah malam sampai jalan-jalan santai berdua, setiap detik bersamamu adalah anugerah terindah."
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Polaroid 3 -->
+          <div class="perspective-1000 h-72 cursor-pointer group" onclick="flipCard(this)">
+            <div class="relative w-full h-full duration-500 transform-style-3d transition-transform shadow-md rounded-xl">
+              <!-- Front -->
+              <div class="absolute inset-0 backface-hidden bg-white p-3 pb-6 rounded-xl border border-[#C2A8C7] flex flex-col justify-between rotate-[-1deg]">
+                <div class="w-full h-44 bg-[#E0D4E3]/70 rounded-lg overflow-hidden flex items-center justify-center">
+                  <img id="imgSlot3" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80" alt="Ulang Tahun 3" class="w-full h-full object-cover">
+                </div>
+                <div class="font-handwriting text-lg text-[#533D57] text-center pt-2">
+                  "Bahagia bersamamu 💐"
+                </div>
+              </div>
+              <!-- Back -->
+              <div class="absolute inset-0 backface-hidden rotate-y-180 bg-[#FFFDFB] p-4 rounded-xl border-2 border-[#A47DAB] flex flex-col justify-center text-center">
+                <div class="text-xl mb-1">🎂</div>
+                <h4 class="font-bold text-xs text-[#7A5C80] mb-1">Doa Tulus Suami</h4>
+                <p class="font-handwriting text-base text-[#533D57] leading-relaxed">
+                  "Semoga di usia yang baru ini, kamu selalu diberikan kesehatan, kelimpahan rezeki, dan kebahagiaan yang tidak pernah ada habisnya."
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="flex justify-between items-center pt-3 border-t border-[#C2A8C7]/50">
+          <button onclick="goToSlide(3)" class="text-xs font-semibold text-[#7A5C80] hover:underline flex items-center gap-1">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+            Kembali ke Tiket
+          </button>
+          <button onclick="goToSlide(5)" class="inline-flex items-center gap-2 bg-[#7A5C80] hover:bg-[#533D57] text-white font-semibold py-2.5 px-5 rounded-xl shadow text-xs sm:text-sm transition-all">
+            <span>Baca Surat Cinta Suami 💌</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SLIDE 5: SURAT CINTA UNTUK PUTRI KIREINA NASTITI -->
+    <section id="slide-5" class="slide-panel hidden w-full max-w-lg">
+      <div class="bg-gradient-to-br from-white to-[#E0D4E3]/50 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-2xl border-2 border-[#C2A8C7] max-h-[84vh] overflow-y-auto custom-scroll relative">
+        
+        <div class="flex items-center gap-2 text-[#7A5C80] font-bold text-xs tracking-wider uppercase mb-3">
+          <i data-lucide="mail-heart" class="w-4 h-4"></i>
+          Surat Tulus Dari Lubuk Hati
+        </div>
+
+        <h3 class="font-serif text-2xl font-extrabold text-[#533D57] mb-4">
+          Untuk Istriku Tercinta, Putri Kireina Nastiti
+        </h3>
+
+        <div class="space-y-3.5 text-xs sm:text-sm text-[#533D57] leading-relaxed font-normal">
+          <p>
+            Selamat ulang tahun sayangku! Tanggal 5 November selalu menjadi hari yang sangat istimewa, bukan hanya untukmu, tapi juga untukku yang selalu bersyukur memiliki kamu di sisiku.
+          </p>
+          <p>
+            Terima kasih atas segala ketulusan, kesabaran, tawa renyah, dan kehangatan yang kamu bawa ke dalam rumah kita. Kamu bukan hanya istri yang luar biasa, tapi juga sahabat terbaik dan tempat ternyaman untuk pulang.
+          </p>
+          <p>
+            Semoga hari ulang tahunmu ini penuh dengan senyuman. Siapkan kopermu, karena staycation santai kita di <strong>Hotel Horison Ultima Bekasi</strong> sudah siap menunggu kehadiran ratunya!
+          </p>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-[#C2A8C7] flex items-center justify-between">
+          <div>
+            <p class="text-[11px] text-[#7A5C80]">Selamanya mencintaimu,</p>
+            <p class="font-handwriting text-2xl sm:text-3xl text-[#533D57] font-bold mt-0.5">Suamimu Tersayang</p>
+          </div>
+          <div class="text-3xl">💖</div>
+        </div>
+
+        <div class="mt-6 flex justify-between items-center">
+          <button onclick="goToSlide(4)" class="text-xs font-semibold text-[#7A5C80] hover:underline flex items-center gap-1">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+            Kembali ke Foto
+          </button>
+          <button onclick="goToSlide(6)" class="inline-flex items-center gap-2 bg-[#7A5C80] hover:bg-[#533D57] text-white font-semibold py-2.5 px-5 rounded-xl shadow text-xs sm:text-sm transition-all">
+            <span>Kirim Ciuman ke Suami 💋</span>
+            <i data-lucide="heart" class="w-4 h-4 fill-white"></i>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SLIDE 6: GRAND FINALE & TOMBOL KIRIM CIUMAN -->
+    <section id="slide-6" class="slide-panel hidden w-full max-w-md text-center">
+      <div class="bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-10 shadow-2xl border-2 border-[#C2A8C7] animate-float">
+        
+        <div class="text-4xl mb-3">🎂🥳🎉</div>
+
+        <h3 class="font-serif text-2xl sm:text-3xl font-extrabold text-[#533D57] mb-2">
+          Selamat Ulang Tahun, Sayaang!!!
+        </h3>
+        <p class="text-xs sm:text-sm text-[#7A5C80] mb-6 font-medium">
+          Apakah kamu suka kejutan kecil ini? Tekan tombol di bawah untuk mengirimkan pelukan dan ciuman virtual langsung ke suamimu!
+        </p>
+
+        <button onclick="sendKiss()" class="w-full inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#7A5C80] to-[#533D57] hover:from-[#533D57] hover:to-[#7A5C80] text-white font-bold py-4 px-6 rounded-2xl shadow-xl shadow-[#7A5C80]/30 transform active:scale-95 transition-all text-sm sm:text-base">
+          <span class="text-xl">💋</span>
+          <span>Kirim Ciuman Manis ke Suami</span>
+        </button>
+
+        <div class="mt-6 flex justify-center gap-4 text-xs font-semibold text-[#7A5C80]">
+          <button onclick="goToSlide(1)" class="hover:underline flex items-center gap-1">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+            Ulang dari Depan
+          </button>
+          <span>•</span>
+          <button onclick="goToSlide(3)" class="hover:underline flex items-center gap-1">
+            <i data-lucide="ticket" class="w-3.5 h-3.5"></i>
+            Lihat Tiket Hotel Lagi
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Notification untuk Ciuman -->
+  <div id="kissToast" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-[#533D57] text-[#E0D4E3] text-xs font-semibold px-5 py-3 rounded-full shadow-2xl flex items-center gap-2 opacity-0 pointer-events-none transition-opacity duration-300 z-50 text-center">
+    <span>🥰 Ciuman diterima! Detak jantung suamimu langsung melonjak 200 BPM! 💓</span>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    // ==========================================
+    // 1. NON-SCROLL SLIDE MANAGER (BEBAS DARI TOMBOL PREV/NEXT BAWAH)
+    // ==========================================
+    let currentSlide = 1;
+    const totalSlides = 6;
+    const slideTitles = [
+      "Undangan Spesial",
+      "Kuis Kejujuran",
+      "Tiket & Hotel",
+      "Album Foto Kita",
+      "Surat Cinta Suami",
+      "Kirim Ciuman"
+    ];
+
+    function updateSlideUI() {
+      // Sembunyikan semua slide
+      document.querySelectorAll('.slide-panel').forEach(panel => {
+        panel.classList.add('hidden');
+      });
+
+      // Tampilkan slide yang aktif
+      const active = document.getElementById(`slide-${currentSlide}`);
+      if (active) active.classList.remove('hidden');
+
+      // Update Header Indicator
+      document.getElementById('stepIndicatorLabel').innerText = 
+        `${currentSlide}/${totalSlides} : ${slideTitles[currentSlide - 1]}`;
+
+      // Inisialisasi canvas jika membuka slide 3
+      if (currentSlide === 3 && !isRevealed) {
+        setTimeout(initScratchCard, 100);
+      }
+    }
+
+    function goToSlide(slideNum) {
+      if (slideNum >= 1 && slideNum <= totalSlides) {
+        currentSlide = slideNum;
+        updateSlideUI();
+        // Coba putar lagu saat aksi klik pertama
+        startMusicWithUserInteraction();
+      }
+    }
+
+    // ==========================================
+    // 2. MUSIK ROMANTIS (song.mp3 dari YouTube -wQlUemIRts) & AUTOPLAY HANDLER
+    // ==========================================
+    const audio = document.getElementById('bgAudio');
+    const vinylIcon = document.getElementById('vinylIcon');
+    const soundWaveIcon = document.getElementById('soundWaveIcon');
+    const musicStatusText = document.getElementById('musicStatusText');
+    let isMusicActive = false;
+
+    function playAudioSafe() {
+      if (!audio) return;
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          isMusicActive = true;
+          musicStatusText.innerText = "Musik Memutar 🎶";
+          soundWaveIcon.classList.remove('hidden');
+          soundWaveIcon.classList.add('flex');
+          vinylIcon.classList.add('animate-spin-slow');
+        }).catch(err => {
+          console.log("Autoplay ditunda oleh browser sampai interaksi:", err);
+        });
+      }
+    }
+
+    function pauseAudio() {
+      if (!audio) return;
+      audio.pause();
+      isMusicActive = false;
+      musicStatusText.innerText = "Musik: Nyalakan 🎵";
+      soundWaveIcon.classList.add('hidden');
+      soundWaveIcon.classList.remove('flex');
+      vinylIcon.classList.remove('animate-spin-slow');
+    }
+
+    function toggleMusic() {
+      if (isMusicActive) {
+        pauseAudio();
+      } else {
+        playAudioSafe();
+      }
+    }
+
+    function startMusicWithUserInteraction() {
+      if (!isMusicActive) {
+        playAudioSafe();
+      }
+    }
+
+    // ==========================================
+    // 3. GAMIFIKASI KUIS & TOMBOL KABUR
+    // ==========================================
+    let dodgeCount = 0;
+    const dodgeRemarks = [
+      "Gak mungkin dong! 😜",
+      "Error 404: Istri adalah bos! 😂",
+      "Siapa bilang? 🤨",
+      "Mimpi kali ya! 🤣",
+      "Sistem menolak! ⛔"
+    ];
+
+    function dodgeButton(e) {
+      const btn = document.getElementById('dodgingBtn');
+      const text = document.getElementById('dodgingText');
+      dodgeCount++;
+
+      text.innerText = dodgeRemarks[dodgeCount % dodgeRemarks.length];
+
+      const randomX = (Math.random() - 0.5) * 140;
+      const randomY = (Math.random() - 0.5) * 60;
+      btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+
+      if (dodgeCount > 3) {
+        confetti({
+          particleCount: 15,
+          spread: 40,
+          origin: { x: 0.5, y: 0.5 }
+        });
+      }
+    }
+
+    function handleQ1Answer(isCorrect) {
+      if (isCorrect) {
+        confetti({
+          particleCount: 60,
+          spread: 60,
+          colors: ['#E0D4E3', '#A47DAB', '#7A5C80', '#533D57'],
+          origin: { y: 0.5 }
+        });
+        document.getElementById('q1-block').classList.add('hidden');
+        document.getElementById('q2-block').classList.remove('hidden');
+      }
+    }
+
+    function handleQ2Answer(isCorrect) {
+      if (isCorrect) {
+        confetti({
+          particleCount: 120,
+          spread: 80,
+          colors: ['#E0D4E3', '#C2A8C7', '#A47DAB', '#7A5C80', '#533D57'],
+          origin: { y: 0.5 }
+        });
+        document.getElementById('q2-block').classList.add('hidden');
+        document.getElementById('quizSuccess').classList.remove('hidden');
+      } else {
+        alert("Hampir benar! Tapi pencapaian terbaik suamimu adalah berhasil memperistri Putri Kireina Nastiti! 💕");
+      }
+    }
+
+    // ==========================================
+    // 4. KARTU GOSOK INTERAKTIF (HTML5 CANVAS)
+    // ==========================================
+    const canvas = document.getElementById('scratchCanvas');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+    let isRevealed = false;
+
+    function initScratchCard() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, '#A47DAB');
+      gradient.addColorStop(0.5, '#C2A8C7');
+      gradient.addColorStop(1, '#7A5C80');
+
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#533D57';
+      ctx.font = 'bold 15px "Plus Jakarta Sans", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('✨ GOSOK DENGAN KASIH SAYANG ✨', canvas.width / 2, canvas.height / 2 - 8);
+      ctx.font = '11px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('Tarik jari/mouse untuk buka voucher', canvas.width / 2, canvas.height / 2 + 16);
+    }
+
+    function scratch(e) {
+      if (!isDrawing || isRevealed) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+      const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.arc(x, y, 22, 0, Math.PI * 2);
+      ctx.fill();
+
+      checkScratchedPercentage();
+    }
+
+    function checkScratchedPercentage() {
+      if (isRevealed) return;
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const pixels = imageData.data;
+      let transparentPixels = 0;
+
+      for (let i = 3; i < pixels.length; i += 16) {
+        if (pixels[i] === 0) {
+          transparentPixels++;
+        }
+      }
+
+      const totalSampled = pixels.length / 16;
+      const percentage = (transparentPixels / totalSampled) * 100;
+
+      if (percentage > 35) {
+        isRevealed = true;
+        canvas.style.transition = 'opacity 0.6s ease';
+        canvas.style.opacity = '0';
+        setTimeout(() => {
+          canvas.style.display = 'none';
+          document.getElementById('scratchHint').innerText = "🎉 Kupon Berhasil Terbuka! Siap Staycation!";
+        }, 600);
+
+        confetti({
+          particleCount: 120,
+          spread: 90,
+          colors: ['#E0D4E3', '#A47DAB', '#7A5C80', '#533D57'],
+          origin: { y: 0.6 }
+        });
+      }
+    }
+
+    canvas.addEventListener('mousedown', () => isDrawing = true);
+    window.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mousemove', scratch);
+
+    canvas.addEventListener('touchstart', (e) => {
+      isDrawing = true;
+      scratch(e);
+    });
+    window.addEventListener('touchend', () => isDrawing = false);
+    canvas.addEventListener('touchmove', scratch);
+
+    // ==========================================
+    // 5. FITUR GANTI / UNGGAH FOTO POLAROID (MENDUKUNG SEMUA 3 FOTO)
+    // ==========================================
+    const defaultPhotos = [
+      "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80"
+    ];
+
+    // Kompresi gambar cerdas agar hemat ruang di LocalStorage dan tidak kena QuotaExceededError
+    function compressImage(file, maxWidth = 800, quality = 0.82) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+              if (width > maxWidth) {
+                height = Math.round((height * maxWidth) / width);
+                width = maxWidth;
+              }
+            } else {
+              if (height > maxWidth) {
+                width = Math.round((width * maxWidth) / height);
+                height = maxWidth;
+              }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.onerror = reject;
+          img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Kompresi khusus PNG untuk menjaga transparansi (alpha channel)
+    function compressPngImage(file, maxWidth = 600) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+
+            if (width > maxWidth || height > maxWidth) {
+              if (width > height) {
+                height = Math.round((height * maxWidth) / width);
+                width = maxWidth;
+              } else {
+                width = Math.round((width * maxWidth) / height);
+                height = maxWidth;
+              }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, width, height); // Pertahankan transparansi background
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL('image/png'));
+          };
+          img.onerror = reject;
+          img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function loadSavedPhotos() {
+      // Muat avatar PNG halaman pertama jika ada yang tersimpan
+      const savedAvatar = localStorage.getItem('putri_bday_avatar_png');
+      if (savedAvatar) {
+        const avatarImg = document.getElementById('avatarImg');
+        if (avatarImg) avatarImg.src = savedAvatar;
+      }
+
+      for (let i = 1; i <= 3; i++) {
+        const saved = localStorage.getItem(`putri_bday_photo_${i}`);
+        if (saved) {
+          const img = document.getElementById(`imgSlot${i}`);
+          if (img) img.src = saved;
+        }
+      }
+    }
+
+    // Unggah dan simpan foto PNG halaman pertama
+    async function handleAvatarUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      try {
+        const base64Png = await compressPngImage(file, 600);
+        const avatarImg = document.getElementById('avatarImg');
+        if (avatarImg) {
+          avatarImg.src = base64Png;
+          try {
+            localStorage.setItem('putri_bday_avatar_png', base64Png);
+          } catch (e) {
+            console.warn("Penyimpanan lokal penuh, foto tetap tampil di sesi ini.");
+          }
+        }
+
+        confetti({
+          particleCount: 50,
+          spread: 60,
+          origin: { y: 0.4 }
+        });
+      } catch (err) {
+        console.error("Gagal mengunggah avatar PNG:", err);
+      }
+    }
+
+    // Unggah foto secara spesifik per slot (Foto 1, Foto 2, atau Foto 3)
+    async function handleSingleUpload(event, slotNum) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      try {
+        const compressedBase64 = await compressImage(file);
+        const img = document.getElementById(`imgSlot${slotNum}`);
+        if (img) {
+          img.src = compressedBase64;
+          try {
+            localStorage.setItem(`putri_bday_photo_${slotNum}`, compressedBase64);
+          } catch (e) {
+            console.warn("Penyimpanan lokal penuh, foto tetap tampil di sesi ini.");
+          }
+        }
+
+        confetti({
+          particleCount: 40,
+          spread: 45,
+          origin: { y: 0.6 }
+        });
+      } catch (err) {
+        console.error("Gagal memproses foto:", err);
+      }
+    }
+
+    // Unggah sekaligus (1 sampai 3 foto sekaligus)
+    async function handlePhotoUpload(event) {
+      const files = event.target.files;
+      if (!files || files.length === 0) return;
+
+      const fileList = Array.from(files).slice(0, 3);
+      for (let i = 0; i < fileList.length; i++) {
+        const file = fileList[i];
+        const slotNum = i + 1;
+        try {
+          const compressedBase64 = await compressImage(file);
+          const img = document.getElementById(`imgSlot${slotNum}`);
+          if (img) {
+            img.src = compressedBase64;
+            try {
+              localStorage.setItem(`putri_bday_photo_${slotNum}`, compressedBase64);
+            } catch (e) {
+              console.warn("Penyimpanan lokal penuh, foto tetap tampil di sesi ini.");
+            }
+          }
+        } catch (err) {
+          console.error("Gagal mengunggah foto slot", slotNum, err);
+        }
+      }
+
+      confetti({
+        particleCount: 60,
+        spread: 60,
+        origin: { y: 0.6 }
+      });
+    }
+
+    function resetPhotos() {
+      localStorage.removeItem('putri_bday_avatar_png');
+      localStorage.removeItem('putri_bday_photo_1');
+      localStorage.removeItem('putri_bday_photo_2');
+      const avatarImg = document.getElementById('avatarImg');
+      if (avatarImg) avatarImg.src = 'https://api.iconify.design/noto:princess.svg';
+      localStorage.removeItem('putri_bday_photo_3');
+      for (let i = 1; i <= 3; i++) {
+        document.getElementById(`imgSlot${i}`).src = defaultPhotos[i - 1];
+      }
+      alert("Foto avatar dan foto kenangan telah dikembalikan ke bawaan!");
+    }
+
+    function flipCard(cardWrapper) {
+      const inner = cardWrapper.firstElementChild;
+      if (inner.classList.contains('rotate-y-180')) {
+        inner.classList.remove('rotate-y-180');
+      } else {
+        inner.classList.add('rotate-y-180');
+      }
+    }
+
+    // ==========================================
+    // 6. FINALE - KIRIM CIUMAN
+    // ==========================================
+    function sendKiss() {
+      const scalar = 2;
+      const heart = confetti.shapeFromText({ text: '💖', scalar });
+      const kiss = confetti.shapeFromText({ text: '💋', scalar });
+      const sparkle = confetti.shapeFromText({ text: '✨', scalar });
+
+      confetti({
+        shapes: [heart, kiss, sparkle],
+        particleCount: 60,
+        spread: 90,
+        scalar
+      });
+
+      const toast = document.getElementById('kissToast');
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+
+      if (navigator.vibrate) {
+        navigator.vibrate([100, 50, 100]);
+      }
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 4000);
+    }
+
+    // Inisialisasi saat window dimuat
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      loadSavedPhotos();
+      updateSlideUI();
+      playAudioSafe();
+
+      // Trigger autoplay pada sentuhan atau klik pertama di layar
+      const handleFirstInteraction = () => {
+        playAudioSafe();
+        window.removeEventListener('click', handleFirstInteraction);
+        window.removeEventListener('touchstart', handleFirstInteraction);
+      };
+      window.addEventListener('click', handleFirstInteraction, { once: true });
+      window.addEventListener('touchstart', handleFirstInteraction, { once: true });
+    });
+  </script>
+</body>
+</html>
